@@ -1,0 +1,28 @@
+# dependencies & builds
+node_modules/
+dist/
+coverage/
+*.tsbuildinfo
+
+# Amplify
+.amplify/
+amplify_outputs*
+amplifyconfiguration*
+
+# local env & secrets: never commit
+.env
+.env.*
+!.env.example
+*.pem
+.aws/
+
+# test output
+playwright-report/
+test-results/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/*
+!.vscode/extensions.json
+.idea/
