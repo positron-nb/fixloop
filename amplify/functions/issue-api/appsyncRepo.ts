@@ -8,6 +8,9 @@ import type { generateClient } from 'aws-amplify/data';
 import type { AssetRecord, IssueEventRecord, IssueRecord, IssueStatus, ReportRecord } from '../../../shared/types';
 import { ACTIVE_STATUSES } from '../../../shared/types';
 import { ConflictError, type Repo } from './repo';
+import { strings, toIssue } from '../../../shared/records';
+
+export { toIssue };
 
 type Client = ReturnType<typeof generateClient<Schema>>;
 type GqlError = { message?: string; errorType?: string };
@@ -35,28 +38,6 @@ function check<T>(res: { data?: T | null; errors?: GqlError[] | null }, what: st
   if (isConditionalFailure(res.errors)) throw new ConflictError(`${what}: conditional check failed`);
   if (res.errors?.length) throw new Error(`${what}: ${res.errors.map((e) => e.message).join('; ')}`);
   return res.data as T;
-}
-
-const strings = (v: unknown): string[] => (Array.isArray(v) ? v.filter((x): x is string => typeof x === 'string') : []);
-const parseJson = (v: unknown) => {
-  if (typeof v === 'string') {
-    try {
-      return JSON.parse(v);
-    } catch {
-      return {};
-    }
-  }
-  return v ?? {};
-};
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function toIssue(r: any): IssueRecord {
-  return {
-    ...r,
-    photoKeys: strings(r.photoKeys),
-    repairEvidenceKeys: strings(r.repairEvidenceKeys),
-    priorityBreakdown: parseJson(r.priorityBreakdown),
-  } as IssueRecord;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

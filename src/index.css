@@ -1,0 +1,284 @@
+@import 'tailwindcss';
+
+/* ───────────── Design tokens ───────────── */
+:root {
+  color-scheme: light;
+  --bg: #f5f6f3;
+  --surface: #ffffff;
+  --surface-2: #f0f2ee;
+  --surface-3: #e7ebe6;
+  --ink: #0f1a17;
+  --ink-2: #48544f;
+  --muted: #74807a;
+  --line: #e1e6e1;
+  --line-strong: #c9d1cb;
+  --brand: #0d6b5f;
+  --brand-strong: #0a5249;
+  --brand-ink: #ffffff;
+  --brand-soft: #e2f1ed;
+  --hero: #0b3b36;
+  --marigold: #f2a72e;
+  --marigold-soft: #fff3dc;
+  --danger: #c43333;
+  --danger-soft: #fdeceb;
+  --warn: #9a5b00;
+  --warn-soft: #fff4dc;
+  --ok: #0a7a3a;
+  --ok-soft: #e4f5ea;
+  --info: #1f63b8;
+  --info-soft: #e6f0fc;
+  --violet: #5443c4;
+  --violet-soft: #eeebfc;
+  --cyan: #0b7489;
+  --cyan-soft: #e1f3f6;
+  --rose: #b4235a;
+  --rose-soft: #fce8ef;
+  /* chart tokens (reference palette, validated) */
+  --chart-surface: #fcfcfb;
+  --series-1: #2a78d6;
+  --series-2: #eb6834;
+  --grid: #e1e0d9;
+  --axis: #c3c2b7;
+  --seq-0: #f0efec;
+  --seq-1: #cde2fb;
+  --seq-2: #9ec5f4;
+  --seq-3: #6da7ec;
+  --seq-4: #3987e5;
+  --seq-5: #256abf;
+  --seq-6: #184f95;
+  --shadow: 0 1px 2px rgb(15 26 23 / 0.04), 0 4px 16px -4px rgb(15 26 23 / 0.08);
+  --shadow-lg: 0 10px 40px -12px rgb(15 26 23 / 0.25);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    color-scheme: dark;
+    --bg: #0b100f;
+    --surface: #131a18;
+    --surface-2: #1a2220;
+    --surface-3: #232d2a;
+    --ink: #edf2ef;
+    --ink-2: #b4c0ba;
+    --muted: #84918b;
+    --line: #25302c;
+    --line-strong: #34413c;
+    --brand: #36b3a0;
+    --brand-strong: #5cc9b8;
+    --brand-ink: #04211d;
+    --brand-soft: #12302b;
+    --hero: #0a2a26;
+    --marigold-soft: #33270f;
+    --danger: #ef6b6b;
+    --danger-soft: #3a1717;
+    --warn: #f2b84b;
+    --warn-soft: #33270f;
+    --ok: #4fcf7f;
+    --ok-soft: #12301f;
+    --info: #6aa8f0;
+    --info-soft: #14263d;
+    --violet: #9a8ff0;
+    --violet-soft: #221d44;
+    --cyan: #4cc3d9;
+    --cyan-soft: #0f2c33;
+    --rose: #f07aa6;
+    --rose-soft: #3a1626;
+    --chart-surface: #1a1a19;
+    --series-1: #3987e5;
+    --series-2: #d95926;
+    --grid: #2c2c2a;
+    --axis: #383835;
+    --seq-0: #383835;
+    --seq-1: #104281;
+    --seq-2: #184f95;
+    --seq-3: #1c5cab;
+    --seq-4: #2a78d6;
+    --seq-5: #5598e7;
+    --seq-6: #86b6ef;
+    --shadow: 0 1px 2px rgb(0 0 0 / 0.4), 0 4px 16px -4px rgb(0 0 0 / 0.5);
+  }
+}
+
+@theme inline {
+  --font-sans: 'Inter', 'Noto Sans Devanagari', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-surface-3: var(--surface-3);
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-brand: var(--brand);
+  --color-brand-strong: var(--brand-strong);
+  --color-brand-ink: var(--brand-ink);
+  --color-brand-soft: var(--brand-soft);
+  --color-hero: var(--hero);
+  --color-marigold: var(--marigold);
+  --color-marigold-soft: var(--marigold-soft);
+  --color-danger: var(--danger);
+  --color-danger-soft: var(--danger-soft);
+  --color-warn: var(--warn);
+  --color-warn-soft: var(--warn-soft);
+  --color-ok: var(--ok);
+  --color-ok-soft: var(--ok-soft);
+  --color-info: var(--info);
+  --color-info-soft: var(--info-soft);
+  --color-violet: var(--violet);
+  --color-violet-soft: var(--violet-soft);
+  --color-cyan: var(--cyan);
+  --color-cyan-soft: var(--cyan-soft);
+  --color-rose: var(--rose);
+  --color-rose-soft: var(--rose-soft);
+  --shadow-card: var(--shadow);
+  --shadow-pop: var(--shadow-lg);
+}
+
+/* ───────────── Base ───────────── */
+html {
+  -webkit-text-size-adjust: 100%;
+  text-rendering: optimizeLegibility;
+}
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-feature-settings: 'cv11', 'ss01';
+  -webkit-font-smoothing: antialiased;
+}
+:lang(hi) body,
+[lang='hi'] {
+  line-height: 1.6;
+}
+:focus-visible {
+  outline: 2px solid var(--brand);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+::selection {
+  background: var(--brand-soft);
+}
+
+@keyframes fl-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes fl-pop {
+  0% {
+    transform: scale(0.6);
+    opacity: 0;
+  }
+  60% {
+    transform: scale(1.08);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+@keyframes fl-shimmer {
+  from {
+    background-position: -400px 0;
+  }
+  to {
+    background-position: 400px 0;
+  }
+}
+@keyframes fl-scanline {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(220px);
+  }
+}
+.fl-enter {
+  animation: fl-fade-up 0.32s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+.fl-pop {
+  animation: fl-pop 0.45s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+.fl-skeleton {
+  background: linear-gradient(90deg, var(--surface-2) 0, var(--surface-3) 120px, var(--surface-2) 240px);
+  background-size: 800px 100%;
+  animation: fl-shimmer 1.3s linear infinite;
+  border-radius: 10px;
+}
+@media (prefers-reduced-motion: reduce) {
+  .fl-enter,
+  .fl-pop,
+  .fl-skeleton {
+    animation: none;
+  }
+}
+
+/* ───────────── Amplify Authenticator theming ───────────── */
+[data-amplify-authenticator] {
+  --amplify-colors-brand-primary-10: var(--brand-soft);
+  --amplify-colors-brand-primary-20: var(--brand-soft);
+  --amplify-colors-brand-primary-40: var(--brand);
+  --amplify-colors-brand-primary-60: var(--brand);
+  --amplify-colors-brand-primary-80: var(--brand);
+  --amplify-colors-brand-primary-90: var(--brand-strong);
+  --amplify-colors-brand-primary-100: var(--brand-strong);
+  --amplify-colors-background-primary: var(--surface);
+  --amplify-colors-background-secondary: var(--surface-2);
+  --amplify-colors-font-primary: var(--ink);
+  --amplify-colors-font-secondary: var(--ink-2);
+  --amplify-colors-font-interactive: var(--brand);
+  --amplify-colors-border-primary: var(--line-strong);
+  --amplify-components-authenticator-router-border-width: 1px;
+  --amplify-components-authenticator-router-border-color: var(--line);
+  --amplify-components-authenticator-router-box-shadow: var(--shadow);
+  --amplify-components-button-primary-background-color: var(--brand);
+  --amplify-components-button-primary-hover-background-color: var(--brand-strong);
+  --amplify-components-button-primary-color: var(--brand-ink);
+  --amplify-components-tabs-item-active-color: var(--brand);
+  --amplify-components-tabs-item-active-border-color: var(--brand);
+  --amplify-components-fieldcontrol-border-radius: 10px;
+  --amplify-components-button-border-radius: 10px;
+  --amplify-fonts-default-variable: var(--font-sans);
+  --amplify-fonts-default-static: var(--font-sans);
+}
+[data-amplify-authenticator] [data-amplify-router] {
+  border-radius: 18px;
+  overflow: hidden;
+}
+
+/* ───────────── Print: QR label sheets ───────────── */
+@media print {
+  @page {
+    size: A4;
+    margin: 10mm;
+  }
+  body {
+    background: #fff !important;
+    color: #000 !important;
+  }
+  .no-print {
+    display: none !important;
+  }
+  .print-only {
+    display: block !important;
+  }
+  .qr-sheet {
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 6mm;
+  }
+  .qr-label {
+    break-inside: avoid;
+    border: 1px dashed #999 !important;
+  }
+}
+.print-only {
+  display: none;
+}
